@@ -29,7 +29,7 @@ def default_message():
     )
 
 
-@app.route('/message/<string:input_text>/', methods=['PUT'])
+@app.route('/message/<string:input_text>/', methods=['POST'])
 def input_message(input_text):
     text = step(message(input_text))
     show_display(text, request.args.get('color', 'white'))
