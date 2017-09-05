@@ -1,27 +1,23 @@
 from flask import Flask
 from flask import request, jsonify
 from flask import render_template
-from claudinha_text.ascii_text import *
+from claudinha_text.ascii_text import play
 from time import strftime
 
 app = Flask(__name__)
 
 
 @app.route('/')
+@crossdomain(origin='*')
 def hello_world():
     return 'Hello, World!'
 
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-
-
 @app.route('/message', methods=['GET'])
+@crossdomain(origin='*')
 def default_message():
     input_text = strftime('Hora: %H:%M:%S')
-    text = step(message(input_text))
-    show_display(text, 'white')
+    play(input_text)
     return jsonify(
         {
             "msg": input_text
@@ -30,9 +26,11 @@ def default_message():
 
 
 @app.route('/message/<string:input_text>/', methods=['POST'])
+@crossdomain(origin='*')
 def input_message(input_text):
-    text = step(message(input_text))
-    show_display(text, request.args.get('color', 'white'))
+    
+    play(input_text, request.args.get('color', 'white'))
+
     return jsonify(
         {
             "msg": input_text
