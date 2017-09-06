@@ -26,7 +26,7 @@ def default_message():
     )
 
 
-@app.route('/message/<string:input_text>/', methods=['POST'])
+@app.route('/message/<string:input_text>', methods=['POST'])
 def input_message(input_text):
     
     play([input_text, request.args.get('color', 'white')])
