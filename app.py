@@ -17,7 +17,7 @@ def hello_world():
 
 @app.route('/message', methods=['GET'])
 def default_message():
-    input_text = strftime('Hora: %H:%M:%S')
+    input_text = [strftime('Hora: %H:%M:%S')]
     play(input_text)
     return jsonify(
         {
@@ -29,7 +29,7 @@ def default_message():
 @app.route('/message/<string:input_text>/', methods=['POST'])
 def input_message(input_text):
     
-    play(input_text, request.args.get('color', 'white'))
+    play([input_text, request.args.get('color', 'white')])
 
     return jsonify(
         {
