@@ -3,18 +3,19 @@ from flask import request, jsonify
 from flask import render_template
 from claudinha_text.ascii_text import play
 from time import strftime
+from flask_cors import CORS, cross_origin
+
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
-@crossdomain(origin='*')
 def hello_world():
     return 'Hello, World!'
 
 
 @app.route('/message', methods=['GET'])
-@crossdomain(origin='*')
 def default_message():
     input_text = strftime('Hora: %H:%M:%S')
     play(input_text)
@@ -26,7 +27,6 @@ def default_message():
 
 
 @app.route('/message/<string:input_text>/', methods=['POST'])
-@crossdomain(origin='*')
 def input_message(input_text):
     
     play(input_text, request.args.get('color', 'white'))
